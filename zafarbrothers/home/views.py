@@ -125,13 +125,7 @@ def module1(request):
             remaining_bags = None
 
         # Convert customer_innovoice_number to integer
-        if customer_innovoice_number:
-            try:
-                customer_innovoice_number = int(customer_innovoice_number)
-            except ValueError:
-                customer_innovoice_number = None
-        else:
-            customer_innovoice_number = None
+        
 
         # Create a CompanyBooking object and save it to the database
         company_booking = CompanyBooking(
