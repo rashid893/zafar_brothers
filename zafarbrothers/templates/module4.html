@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+ 
+<style>
+    label {
+        font-weight: bold;
+        margin: 5px;
+        padding: auto;
+      }
+  
+      .messages {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+  
+      .messages li {
+        padding: 10px;
+        margin-bottom: 10px;
+      }
+  
+      /* Success message style */
+      .messages li.success {
+        color: #155724;
+        background-color: #d4edda;
+        border-color: #c3e6cb;
+        list-style: none;
+      }
+  
+      /* Error message style */
+      .messages li.error {
+        color: #721c24;
+        background-color: #f8d7da;
+        border-color: #f5c6cb;
+        list-style: none;
+      }
+  
+      /* Warning message style */
+      .messages li.warning {
+        color: #856404;
+        background-color: #fff3cd;
+        border-color: #ffeeba;
+        list-style: none;
+      }
+</style>
+
+</head>
+  <body>
+    <h1>moduele4</h1>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-10">
+                <form method="POST" action="{% url 'module4' %}" class="shadow-lg p-3 mb-5 bg-body rounded" enctype="multipart/form-data">
+                    {% if messages %}
+                    <ul class="messages">
+                      {% for message in messages %}
+                      <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+          
+          
+               
+                    {% csrf_token %}
+          <div class="form-group">
+            <label for="client">Trader name:</label>
+            <select class="form-control" name="client">
+              <option selected disabled>Select</option>
+
+              <option>FFC</option>
+              <option>ENGRO</option>
+              <option>Fatima Group</option>
+              <option>NFC</option>
+            </select>
+          </div>
+
+          <!-- Product Name -->
+          <div class="mb-3">
+            <label for="product_name" class="form-label">Product Name:</label>
+            <input type="text" class="form-control" id="product_name" name="product_name" placeholder="Enter product name">
+        </div>
+
+        <!-- Stock In -->
+        <div class="mb-3">
+            <label for="stock_in" class="form-label">Stock In:</label>
+            <input type="text" class="form-control" id="stock_in" name="stock_in" placeholder="Enter stock in">
+        </div>
+
+        <!-- Stock Out -->
+        <div class="mb-3">
+            <label for="stock_out" class="form-label">Stock Out:</label>
+            <input type="text" class="form-control" id="stock_out" name="stock_out" placeholder="Enter stock out">
+        </div>
+
+        <!-- Per Bag Price -->
+        <div class="mb-3">
+            <label for="per_bag_price" class="form-label">Per Bag Price:</label>
+            <input type="text" class="form-control" id="per_bag_price" name="per_bag_price" placeholder="Enter per bag price">
+        </div>
+
+        <!-- Total Tons -->
+        <div class="mb-3">
+            <label for="total_tons" class="form-label">Total Tons:</label>
+            <input type="text" class="form-control" id="total_tons" name="total_tons" placeholder="Enter total tons">
+        </div>
+
+        <!-- Number of Bags -->
+        <div class="mb-3">
+            <label for="number_of_bags" class="form-label">Number of Bags:</label>
+            <input type="text" class="form-control" id="number_of_bags" name="number_of_bags" placeholder="Enter number of bags">
+        </div>
+
+        <!-- Total Price -->
+        <div class="mb-3">
+            <label for="total_price" class="form-label">Total Price:</label>
+            <input type="text" class="form-control" id="total_price" name="total_price" placeholder="Enter total price">
+        </div>
+
+        <!-- Stock Out Price -->
+        <div class="mb-3">
+            <label for="stock_out_price" class="form-label">Stock Out Price:</label>
+            <input type="text" class="form-control" id="stock_out_price" name="stock_out_price" placeholder="Enter stock out price">
+        </div>
+
+        <!-- Remaining Stock Price -->
+        <div class="mb-3">
+            <label for="remaining_stock_price" class="form-label">Remaining Stock Price:</label>
+            <input type="text" class="form-control" id="remaining_stock_price" name="remaining_stock_price" placeholder="Enter remaining stock price">
+        </div>
+
+        <!-- Profit -->
+        <div class="mb-3">
+            <label for="profit" class="form-label">Profit:</label>
+            <input type="text" class="form-control" id="profit" name="profit" placeholder="Enter profit">
+        </div>
+
+         
+        <button type="submit" class="btn btn-primary">Submit</button>
+         <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Views Data
+</button>
+
+    </form>
+
+ 
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/views_data_module4/" method="post">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="client">Trader name:</label>
+            <select class="form-control" name="client">
+              <option selected disabled>Select</option>
+
+              <option>FFC</option>
+              <option>ENGRO</option>
+              <option>Fatima Group</option>
+              <option>NFC</option>
+            </select>
+          </div>
+          <br>
+          <button type="submit" class="btn btn-primary">Submit</button>
+
+        </form>
+
+        
+      </div>
+      <div class="modal-footer">
+        
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!-- Add this to your HTML file (e.g., deal.html) -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deals</title>
+    <!-- Add Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h2>Deals</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Trader Name</th>
+                <th scope="col">System Generated Bilty Number</th>
+                <th scope="col">Date</th>
+                <th scope="col">Deal Price</th>
+                <th scope="col">Deal Freight</th>
+                <th scope="col">Third Party Name</th>
+                <th scope="col">Third Party Paid Fare</th>
+                <th scope="col">Paid By Self</th>
+                <th scope="col">Owner Transport Fare</th>
+                <th scope="col">Vehicle Number</th>
+                <th scope="col">Drivers Name</th>
+                <th scope="col">Drivers ID</th>
+                <th scope="col">Stock Location</th>
+                <th scope="col">Delivered Status</th>
+                <th scope="col">Drivers Mobile</th>
+                <th scope="col">Tons</th>
+                <th scope="col">Ordered Total Bags</th>
+                <th scope="col">Pending Ordered Bags at Trader's Area</th>
+                <th scope="col">Delivered Bags</th>
+                <th scope="col">Dispatched</th>
+                <th scope="col">Product</th>
+                <th scope="col">Bank Payment Slip Number</th>
+                <th scope="col">Payment Type</th>
+                <th scope="col">Payment Amount</th>
+                <th scope="col">Order Total Amount</th>
+                <th scope="col">Payment Expected Date</th>
+                <th scope="col">Bank Name</th>
+                <th scope="col">Zafar and Brothers Account Number</th>
+                <th scope="col">Target Trader Account</th>
+                <th scope="col">Warehouse Booking</th>
+                <th scope="col">Fare Paid By</th>
+                <th scope="col">Invoice Picture</th>
+                <th scope="col">Freight Paid</th>
+                <th scope="col">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for deal in data %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ deal.trader_name }}</td>
+                    <td>{{ deal.system_generated_bilty_number }}</td>
+                    <td>{{ deal.date }}</td>
+                    <td>{{ deal.deal_price }}</td>
+                    <td>{{ deal.deal_freight }}</td>
+                    <td>{{ deal.third_party_name }}</td>
+                    <td>{{ deal.thrid_party_paid_fare }}</td>
+                    <td>{{ deal.paid_by_self }}</td>
+                    <td>{{ deal.owner_transport_fare }}</td>
+                    <td>{{ deal.vehicle_number }}</td>
+                    <td>{{ deal.drivers_name }}</td>
+                    <td>{{ deal.drivers_id }}</td>
+                    <td>{{ deal.stock_location }}</td>
+                    <td>{{ deal.delivered_status }}</td>
+                    <td>{{ deal.drivers_mobile }}</td>
+                    <td>{{ deal.tons }}</td>
+                    <td>{{ deal.ordered_total_bags }}</td>
+                    <td>{{ deal.pending_ordered_bags_at_traders_area }}</td>
+                    <td>{{ deal.delivered_bags }}</td>
+                    <td>{{ deal.dispatched }}</td>
+                    <td>{{ deal.product }}</td>
+                    <td>{{ deal.bank_payment_slip_number.url }}</td>  <!-- Assuming you want to display the URL of the file -->
+                    <td>{{ deal.payment_type }}</td>
+                    <td>{{ deal.payment_amount }}</td>
+                    <td>{{ deal.order_total_amount }}</td>
+                    <td>{{ deal.payment_expected_date }}</td>
+                    <td>{{ deal.bank_name }}</td>
+                    <td>{{ deal.zafar_and_brothers_account_number }}</td>
+                    <td>{{ deal.target_trader_account }}</td>
+                    <td>{{ deal.warehouse_booking }}</td>
+                    <td>{{ deal.fare_paid_by }}</td>
+                    <td>{{ deal.invoice_picture.url }}</td>  <!-- Assuming you want to display the URL of the image -->
+                    <td>{{ deal.freight_paid }}</td>
+                    <td>{{ deal.status }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Add Bootstrap JS and Popper.js -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

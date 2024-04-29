@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+ 
+<style>
+    label {
+        font-weight: bold;
+        margin: 5px;
+        padding: auto;
+      }
+  
+      .messages {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+  
+      .messages li {
+        padding: 10px;
+        margin-bottom: 10px;
+      }
+  
+      /* Success message style */
+      .messages li.success {
+        color: #155724;
+        background-color: #d4edda;
+        border-color: #c3e6cb;
+        list-style: none;
+      }
+  
+      /* Error message style */
+      .messages li.error {
+        color: #721c24;
+        background-color: #f8d7da;
+        border-color: #f5c6cb;
+        list-style: none;
+      }
+  
+      /* Warning message style */
+      .messages li.warning {
+        color: #856404;
+        background-color: #fff3cd;
+        border-color: #ffeeba;
+        list-style: none;
+      }
+</style>
+
+</head>
+  <body>
+    <h1>moduele1 </h1>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-10">
+                <form method="POST" action="{% url 'module1' %}" class="shadow-lg p-3 mb-5 bg-body rounded" enctype="multipart/form-data">
+                    {% if messages %}
+                    <ul class="messages">
+                      {% for message in messages %}
+                      <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+          
+          
+               
+                    {% csrf_token %}
+          <div class="form-group">
+            <label for="client">Company Bookings:</label>
+            <select class="form-control" name="client">
+              <option selected disabled>Select</option>
+
+              <option>FFC</option>
+              <option>ENGRO</option>
+              <option>Fatima Group</option>
+              <option>NFC</option>
+              <option>FFC</option>
+              <option>SUNCROP AC</option>
+             
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="manual_bilty">Manual Bilty:</label>
+            <input type="text" class="form-control" id="manual_bilty" name="manual_bilty">
+          </div>
+
+          <div class="mb-3">
+            <label for="customer_order_number" class="form-label">Customer Order Number</label>
+            <input type="text" class="form-control" id="customer_order_number" name="customer_order_number" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="booking_price" class="form-label">Booking Price</label>
+            <input type="number" class="form-control" id="booking_price" name="booking_price" required>
+        </div>
+        <div class="mb-3">
+            <label for="vehicle_number" class="form-label">Vehicle Number</label>
+            <input type="text" class="form-control" id="vehicle_number" name="vehicle_number" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="drivers_name" class="form-label">Driver Name</label>
+            <input type="text" class="form-control" id="drivers_name" name="drivers_name" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="drivers_id" class="form-label">Driver ID</label>
+            <input type="text" class="form-control" id="drivers_id" name="drivers_id" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="drivers_mobile" class="form-label">Driver Mobile</label>
+            <input type="tel" class="form-control" id="drivers_mobile" name="drivers_mobile" required>
+        </div>
+
+        {% comment %} <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="pending_at_company" name="pending_at_company">
+            <label class="form-check-label" for="pending_at_company">Pending at Company</label>
+        </div>  {% endcomment %}
+
+        <div class="mb-3">
+            <label for="products_bank_payment_slip_number" class="form-label"> Pending_at_company</label>
+            <input type="text" class="form-control" id="pending_at_company" name="pending_at_company">
+        </div>
+
+        <div class="form-group">
+          <label for="product">Product:</label>
+          <select class="form-control" name="product" required>
+              <option selected disabled>Select Product</option>
+              {% for product in data %}
+              <option value="{{ product.product_list_fertilizer }}">{{ product.product_list_fertilizer }}</option>
+              {% endfor %}
+          </select>
+      </div>
+        <div class="mb-3">
+            <label for="products_bank_payment_slip_number" class="form-label"> Bank Payment Slip Number</label>
+            <input type="text" class="form-control" id="products_bank_payment_slip_number" name="products_bank_payment_slip_number">
+        </div>
+
+        <div class="mb-3">
+            <label for="payment_amount" class="form-label">Payment Amount</label>
+            <input type="number" class="form-control" id="payment_amount" name="payment_amount">
+        </div>
+
+        <div class="mb-3">
+            <label for="order_amount" class="form-label">Order Amount</label>
+            <input type="number" class="form-control" id="order_amount" name="order_amount" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="name_of_the_bank" class="form-label">Name of the Bank</label>
+            <input type="text" class="form-control" id="name_of_the_bank" name="name_of_the_bank">
+        </div>
+
+        <div class="mb-3">
+            <label for="zafar_and_brothers_bank_account_number" class="form-label">Zafar and Brothers Bank Account Number</label>
+            <input type="text" class="form-control" id="zafar_and_brothers_bank_account_number" name="zafar_and_brothers_bank_account_number" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="target_bank_account" class="form-label">Target Bank Account</label>
+            <input type="text" class="form-control" id="target_bank_account" name="target_bank_account" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="warehouse_booking" class="form-label">Warehouse Booking</label>
+            <input type="text" class="form-control" id="warehouse_booking" name="warehouse_booking">
+        </div>
+
+        <div class="mb-3">
+            <label for="invoice_picture" class="form-label">Invoice Picture</label>
+            <input type="file" class="form-control" id="invoice_picture" name="invoice_picture">
+        </div>
+
+        <div class="form-group">
+            <label for="product">Status</label>
+            <select class="form-control" name="reach_return" required>
+              <option selected disabled>Select</option>
+              <option value="intransit">intransit</option>
+              <option value="delivered">delivered</option>
+              
+            </select>
+          </div>
+
+
+        <div class="mb-3">
+            <label for="tons" class="form-label">Tons</label>
+            <input type="number" class="form-control" id="tons" name="tons">
+        </div>
+
+        <div class="mb-3">
+            <label for="ordered_total_bags" class="form-label">Ordered Total Bags</label>
+            <input type="number" class="form-control" id="ordered_total_bags" name="ordered_total_bags" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="ordered_total_bags" class="form-label">diversion Bags</label>
+          <input type="number" class="form-control" id="diversion_bags" name="diversion_bags" >
+      </div>
+
+        <div class="mb-3">
+          <label for="ordered_total_bags" class="form-label">Customer innovoice Number</label>
+          <input type="number" class="form-control" id="ordered_total_bags" name="customer_innovoice_number">
+      </div>
+     
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+         <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Views Data
+</button>
+
+    </form>
+
+ 
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/views_data_module1/" method="post">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="client">Company Bookings:</label>
+            <select class="form-control" name="client">
+              <option selected disabled>Select</option>
+
+              <option>FFC</option>
+              <option>ENGRO</option>
+              <option>Fatima Group</option>
+              <option>NFC</option>
+              <option>FMC</option>
+              <option>SUNCROP AC</option>
+            </select>
+          </div>
+          <br>
+          <button type="submit" class="btn btn-primary">Submit</button>
+
+        </form>
+
+        
+      </div>
+      <div class="modal-footer">
+        
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+</body>
+</html>

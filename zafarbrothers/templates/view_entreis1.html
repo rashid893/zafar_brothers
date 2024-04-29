@@ -1,0 +1,79 @@
+<!-- Add this to your HTML file (e.g., module1.html) -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Bookings</title>
+    <!-- Add Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h2>Company Bookings</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Company Bookings</th>
+                <th scope="col">Customer Order Number</th>
+                <th scope="col">Builty Number</th>
+                <th scope="col">Date</th>
+                <th scope="col">Booking Price</th>
+                <th scope="col">Vehicle Number</th>
+                <th scope="col">Drivers Name</th>
+                <th scope="col">Drivers ID</th>
+                <th scope="col">Drivers Mobile</th>
+                <th scope="col">Pending at Company</th>
+                <th scope="col">Product</th>
+                <th scope="col">Bank Payment Slip Number</th>
+                <th scope="col">Payment Amount</th>
+                <th scope="col">Order Amount</th>
+                <th scope="col">Name of the Bank</th>
+                <th scope="col">Zafar and Brothers Bank Account Number</th>
+                <th scope="col">Target Bank Account</th>
+                <th scope="col">Warehouse Booking</th>
+                <th scope="col">Invoice Picture</th>
+                <th scope="col">Status</th>
+                <th scope="col">Tons</th>
+                <th scope="col">Ordered Total Bags</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for booking in data %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ booking.Company_Bookings }}</td>
+                    <td>{{ booking.customer_order_number }}</td>
+                    <td>{{ booking.builty_number }}</td>
+                    <td>{{ booking.date }}</td>
+                    <td>{{ booking.booking_price }}</td>
+                    <td>{{ booking.vehicle_number }}</td>
+                    <td>{{ booking.drivers_name }}</td>
+                    <td>{{ booking.drivers_id }}</td>
+                    <td>{{ booking.drivers_mobile }}</td>
+                    <td>{{ booking.pending_at_company }}</td>
+                    <td>{{ booking.product }}</td>
+                    <td>{{ booking.bank_payment_slip_number }}</td>
+                    <td>{{ booking.payment_amount }}</td>
+                    <td>{{ booking.order_amount }}</td>
+                    <td>{{ booking.name_of_the_bank }}</td>
+                    <td>{{ booking.zafar_and_brothers_bank_account_number }}</td>
+                    <td>{{ booking.target_bank_account }}</td>
+                    <td>{{ booking.warehouse_booking }}</td>
+                    <td>{{ booking.invoice_picture.url }}</td>  <!-- Assuming you want to display the URL of the image -->
+                    <td>{{ booking.status }}</td>
+                    <td>{{ booking.tons }}</td>
+                    <td>{{ booking.ordered_total_bags }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Add Bootstrap JS and Popper.js -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
