@@ -202,11 +202,50 @@
             <input type="number" class="form-control" id="ordered_total_bags" name="ordered_total_bags" required>
         </div>
 
-        <div class="mb-3">
-          <label for="ordered_total_bags" class="form-label">diversion Bags</label>
-          <input type="number" class="form-control" id="diversion_bags" name="diversion_bags" >
+        <div class="mb-3 form-check">
+          <input type="checkbox" class="form-check-input" id="enable_diversion" name="enable_diversion">
+          <label class="form-check-label" for="enable_diversion">Enable Diversion</label>
       </div>
+      
+      <div id="diversion_fields" style="display: none;">
+          <div class="mb-3">
+              <label for="ordered_total_bags" class="form-label">diversion Bags</label>
+              <input type="number" class="form-control" id="diversion_bags" name="diversion_bags">
+          </div>
 
+          <div class="mb-3">
+            <label for="per_bag_price" class="form-label">Per Bag Price:</label>
+            <input type="text" class="form-control" id="per_bag_price" name="per_bag_price" placeholder="Enter per bag price">
+        </div>
+        <div class="form-group">
+          <label for="client">diversion Company Bookings:</label>
+          <select class="form-control" name="dclient">
+            <option selected disabled>Select</option>
+
+            <option>FFC</option>
+            <option>ENGRO</option>
+            <option>Fatima Group</option>
+            <option>NFC</option>
+            <option>FMC</option>
+            <option>SUNCROP AC</option>
+           
+          </select>
+        </div>
+
+
+      </div>
+      
+      <script>
+          document.getElementById('enable_diversion').addEventListener('change', function() {
+              var diversionFields = document.getElementById('diversion_fields');
+              if (this.checked) {
+                  diversionFields.style.display = 'block';
+              } else {
+                  diversionFields.style.display = 'none';
+              }
+          });
+      </script>
+      
        
      
 

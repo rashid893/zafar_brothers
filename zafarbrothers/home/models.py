@@ -30,6 +30,9 @@ class CompanyBooking(models.Model):
     remaining_bags = models.IntegerField(blank=True, null=True)
     diversion_bags = models.IntegerField(blank=True, null=True)
     customer_innovoice_number = models.IntegerField(blank=True, null=True)
+    per_bag_price=models.CharField(max_length=122,blank=True, null=True)
+    Diversion_Company_Bookings = models.CharField(max_length=50,blank=True, null=True)
+
 
 
 
