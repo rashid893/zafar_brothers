@@ -101,7 +101,7 @@ def module1(request):
         customer_innovoice_number = request.POST.get('customer_innovoice_number')
         print("ccccccccccccccccccccccccc",customer_innovoice_number)
         per_bag_price = request.POST.get('per_bag_price')
-        Dcompany_bookings = request.POST.get('dclient')
+        Diversion_Party= request.POST.get('dclient')
         
         # Convert diversion_bags and ordered_total_bags to integers
         if diversion_bags:
@@ -155,7 +155,7 @@ def module1(request):
             diversion_bags=diversion_bags,
             customer_innovoice_number=customer_innovoice_number,
             per_bag_price=per_bag_price,
-            Diversion_Company_Bookings= Dcompany_bookings,
+            Diversion_Party=Diversion_Party,
             remaining_bags=remaining_bags
         )
         company_booking.save()
