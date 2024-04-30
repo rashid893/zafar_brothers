@@ -71,6 +71,13 @@ class Deal(models.Model):
     invoice_picture = models.ImageField(upload_to='media')
     freight_paid = models.DecimalField(max_digits=20, decimal_places=2, null=True)
     status = models.CharField(max_length=20)
+    ordered_bags = models.IntegerField()
+    remaining_bags = models.IntegerField(blank=True, null=True)
+    
+    per_bag_price=models.CharField(max_length=122,blank=True, null=True)
+    Diversion_Party = models.CharField(max_length=50,blank=True, null=True)
+
+
 
 @receiver(pre_save, sender=Deal)
 def update_bilty_number(sender, instance, **kwargs):

@@ -170,16 +170,11 @@ def module1(request):
 from datetime import datetime
 from .models import Deal  # Replace 'Deal' with your actual model
 
-
-
-
-
 def module2(request):
     data = moduelproducts(request)
     trade = modueltrade(request)
     if request.method == 'POST':
         trader_name = request.POST.get('client')
-       
         deal_price = request.POST.get('deal_price')
         vehicle_number = request.POST.get('vehicle_number')
         drivers_name = request.POST.get('drivers_name')
@@ -206,20 +201,42 @@ def module2(request):
         invoice_picture = request.FILES.get('invoice_picture')
         freight_paid = request.POST.get('freight-paid')
         status = request.POST.get('reach_return')
-        print("xxxxxxxxxxxxxxxxxxxxx",trader_name,freight_paid)
-           # Check if the payment type is "Hawala" and get the payment details
-        if payment_type == 'Hawala':
-            payment_type  = request.POST.get('paymentDetails')
-            print("hereeeeeeeeeeeeee is hawala ",payment_type )
-        else:
-            payment_type =payment_type 
+        diversion_bags = request.POST.get('diversion_bags')
+        per_bag_price = request.POST.get('per_bag_price')
+        Diversion_Party = request.POST.get('dclient')
 
-        
-        
-       
+        # Convert diversion_bags and ordered_total_bags to integers
+        if diversion_bags:
+            try:
+                diversion_bags = int(diversion_bags)
+            except ValueError:
+                diversion_bags = None
+        else:
+            diversion_bags = None
+
+        if ordered_bags:
+            try:
+                ordered_bags = int(ordered_bags)
+            except ValueError:
+                ordered_bags = None
+        else:
+            ordered_bags = None
+
+        # Calculate remaining_bags if ordered_total_bags and diversion_bags are not None
+        if ordered_bags is not None and diversion_bags is not None:
+            remaining_bags = ordered_bags - diversion_bags
+        else:
+            remaining_bags = None
+
+        # Check if the payment type is "Hawala" and get the payment details
+        if payment_type == 'Hawala':
+            payment_type = request.POST.get('paymentDetails')
+            print("hereeeeeeeeeeeeee is hawala ", payment_type)
+        else:
+            payment_type = payment_type
+
         deal = Deal(
             trader_name=trader_name,
-          
             deal_price=deal_price,
             vehicle_number=vehicle_number,
             drivers_name=drivers_name,
@@ -245,16 +262,22 @@ def module2(request):
             fare_paid_by=fare_paid_by,
             invoice_picture=invoice_picture,
             freight_paid=freight_paid,
+            per_bag_price=per_bag_price,
+            Diversion_Party=Diversion_Party,
+            remaining_bags=remaining_bags,
             status=status
         )
 
         deal.save()
 
         messages.success(request, 'Data added successfully.')
-        return render(request, 'module2.html',{'data': data,'trade':trade}) # Redirect to the same page or another page
+        return render(request, 'module2.html', {'data': data, 'trade': trade})  # Redirect to the same page or another page
     else:
-        return render(request, 'module2.html',{'data': data,'trade':trade})
- 
+        return render(request, 'module2.html', {'data': data, 'trade': trade})
+
+
+
+
  ################ MODULE 3 #############################################33
 
 
