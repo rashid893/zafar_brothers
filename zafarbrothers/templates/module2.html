@@ -321,16 +321,14 @@
             <form action="/views_data_module2/" method="post">
               {% csrf_token %}
               <div class="form-group">
-                <label for="client">Company Bookings:</label>
+                <label for="client">Trader's from purchase:</label>
                 <select class="form-control" name="client">
-                  <option selected disabled>Select</option>
-    
-                  <option>FFC</option>
-                  <option>ENGRO</option>
-                  <option>Fatima Group</option>
-                  <option>NFC</option>
+                    <option selected disabled>Select</option>
+                    {% for trader in trade %}
+                        <option>{{ trader.trader }}</option>
+                    {% endfor %}
                 </select>
-              </div>
+            </div>
               <br>
               <button type="submit" class="btn btn-primary">Submit</button>
     

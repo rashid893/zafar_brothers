@@ -28,7 +28,7 @@
                 <th scope="col">Delivered Status</th>
                 <th scope="col">Drivers Mobile</th>
                 <th scope="col">Tons</th>
-                <th scope="col">Ordered Bags</th>
+                
                 <th scope="col">Pending Ordered Bags</th>
                 <th scope="col">Delivered Bags</th>
                 <th scope="col">Dispatched</th>
@@ -46,6 +46,11 @@
                 <th scope="col">Invoice Picture</th>
                 <th scope="col">Freight Paid</th>
                 <th scope="col">Status</th>
+                <th scope="col">Ordered Bags</th>
+                <th scope="col">Remaining Bags</th>
+                <th scope="col">Diversion Bage</th>
+                <th scope="col">Per Bag Price</th>
+                <th scope="col">Diversion Party</th>
             </tr>
         </thead>
         <tbody>
@@ -63,7 +68,7 @@
                     <td>{{ deal.delivered_status }}</td>
                     <td>{{ deal.drivers_mobile }}</td>
                     <td>{{ deal.tons }}</td>
-                    <td>{{ deal.ordered_bags }}</td>
+                    
                     <td>{{ deal.pending_ordered_bags }}</td>
                     <td>{{ deal.delivered_bags }}</td>
                     <td>{{ deal.dispatched }}</td>
@@ -81,6 +86,13 @@
                     <td>{{ deal.invoice_picture.url }}</td>  <!-- Assuming you want to display the URL of the image -->
                     <td>{{ deal.freight_paid }}</td>
                     <td>{{ deal.status }}</td>
+                    <td>{{ deal.ordered_bags }}</td>
+                    <td>{{ deal.remaining_bags}}</td>
+                    <td>{{ deal.diversion_bags }}</td>
+                    <td>{{ deal.per_bag_price }}</td>
+                    <td>{{ deal.Diversion_Party }}</td>
+               
+               
                 </tr>
             {% endfor %}
         </tbody>

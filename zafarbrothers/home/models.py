@@ -73,6 +73,7 @@ class Deal(models.Model):
     status = models.CharField(max_length=20)
     ordered_bags = models.IntegerField()
     remaining_bags = models.IntegerField(blank=True, null=True)
+    diversion_bags = models.IntegerField(blank=True, null=True)
     
     per_bag_price=models.CharField(max_length=122,blank=True, null=True)
     Diversion_Party = models.CharField(max_length=50,blank=True, null=True)

@@ -204,6 +204,7 @@ def module2(request):
         diversion_bags = request.POST.get('diversion_bags')
         per_bag_price = request.POST.get('per_bag_price')
         Diversion_Party = request.POST.get('dclient')
+        print("cccccccccccccccpp",diversion_bags)
 
         # Convert diversion_bags and ordered_total_bags to integers
         if diversion_bags:
@@ -263,6 +264,7 @@ def module2(request):
             invoice_picture=invoice_picture,
             freight_paid=freight_paid,
             per_bag_price=per_bag_price,
+            diversion_bags=diversion_bags,
             Diversion_Party=Diversion_Party,
             remaining_bags=remaining_bags,
             status=status

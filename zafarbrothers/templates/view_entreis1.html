@@ -1,5 +1,3 @@
-<!-- Add this to your HTML file (e.g., module1.html) -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,6 +37,11 @@
                 <th scope="col">Status</th>
                 <th scope="col">Tons</th>
                 <th scope="col">Ordered Total Bags</th>
+                <th scope="col">Remaining Bags</th>
+                <th scope="col">Diversion Bags</th>
+                <th scope="col">Per Bag Price</th>
+                <th scope="col">Diversion Party</th>
+                <th scope="col">Customer Invoice Number</th>
             </tr>
         </thead>
         <tbody>
@@ -63,10 +66,16 @@
                     <td>{{ booking.zafar_and_brothers_bank_account_number }}</td>
                     <td>{{ booking.target_bank_account }}</td>
                     <td>{{ booking.warehouse_booking }}</td>
-                    <td>{{ booking.invoice_picture.url }}</td>  <!-- Assuming you want to display the URL of the image -->
+                    {% comment %} <td><img src="{{ booking.invoice_picture }}" alt="Invoice Picture"></td>  <!-- Display image --> {% endcomment %}
+                   <td>{{booking.invoice_picture.url}}</td>
                     <td>{{ booking.status }}</td>
                     <td>{{ booking.tons }}</td>
-                    <td>{{ booking.ordered_total_bags }}</td>
+                    <td>{{ booking.ordered_total_bags }}</td> 
+                    <td>{{ booking.remaining_bags }}</td>
+                    <td>{{ booking.diversion_bags }}</td>
+                    <td>{{ booking.per_bag_price }}</td>
+                    <td>{{ booking.Diversion_Party }}</td>
+                    <td>{{ booking.customer_invoice_number }}</td>  <!-- Display customer invoice number -->
                 </tr>
             {% endfor %}
         </tbody>
