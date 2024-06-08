@@ -69,16 +69,14 @@
           
                
                     {% csrf_token %}
-          <div class="form-group">
-            <label for="client">Company Bookings:</label>
-            <select class="form-control" name="client">
-              <option selected disabled>Select</option>
-
-              <option>FFC</option>
-              <option>ENGRO</option>
-              <option>Fatima Group</option>
-              <option>NFC</option>
-            </select>
+            <div class="form-group">
+              <label for="client">Trader's from purchase:</label>
+              <select class="form-control" name="client">
+                  <option selected disabled>Select</option>
+                  {% for trader in trade %}
+                      <option>{{ trader.trader }}</option>
+                  {% endfor %}
+              </select>
           </div>
 
           
@@ -182,15 +180,15 @@
         </select>
     </div>
 
-        <div class="form-group">
-            <label for="product">Product:</label>
-            <select class="form-control" name="product" required>
-              <option selected disabled>Select Product</option>
-              <option value="Urea">list</option>
-              <option value="NP">list</option>
-              <option value="CAN">list</option>
-            </select>
-          </div>
+    <div class="form-group">
+      <label for="product">Product:</label>
+      <select class="form-control" name="product" required>
+          <option selected disabled>Select Product</option>
+          {% for product in data %}
+          <option value="{{ product.product_list_fertilizer }}">{{ product.product_list_fertilizer }}</option>
+          {% endfor %}
+      </select>
+  </div>
 
         <div class="mb-3">
             <label for="products_bank_payment_slip_number" class="form-label"> Bank Payment Slip Number</label>
@@ -293,6 +291,42 @@
               
             </select>
           </div>
+
+          <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="enable_diversion" name="enable_diversion">
+            <label class="form-check-label" for="enable_diversion">Enable Diversion</label>
+        </div>
+        
+        <div id="diversion_fields" style="display: none;">
+            <div class="mb-3">
+                <label for="ordered_total_bags" class="form-label">diversion Bags</label>
+                <input type="number" class="form-control" id="diversion_bags" name="diversion_bags">
+            </div>
+  
+            <div class="mb-3">
+              <label for="per_bag_price" class="form-label">Per Bag Price:</label>
+              <input type="text" class="form-control" id="per_bag_price" name="per_bag_price" placeholder="Enter per bag price">
+          </div>
+          <div class="mb-3">
+            <label for="per_bag_price" class="form-label">Diversion Party</label>
+            <input type="text" class="form-control" id="per_bag_price" name="dclient" placeholder="Enter diversion party name">
+        </div>
+  
+  
+        </div>
+        
+        <script>
+            document.getElementById('enable_diversion').addEventListener('change', function() {
+                var diversionFields = document.getElementById('diversion_fields');
+                if (this.checked) {
+                    diversionFields.style.display = 'block';
+                } else {
+                    diversionFields.style.display = 'none';
+                }
+            });
+        </script>
+  
+  
 
 
        

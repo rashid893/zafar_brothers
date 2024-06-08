@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import CompanyBooking,Deal,Module3,Module4,Product,Trader
+from .models import CompanyBooking,Deal,Module3,Module4,Product,Trader,StockInData,StockOut,Module6Stockretail
 
 # Register your models here.
 
@@ -33,3 +33,22 @@ class Module4Admin(admin.ModelAdmin):
 @admin.register(Trader)
 class Module4Admin(admin.ModelAdmin):
     list_display = [field.name for field in Trader._meta.fields]
+
+
+@admin.register(StockInData)
+class StockInDataAdmin(admin.ModelAdmin):
+    list_display = [field.name for field in StockInData._meta.fields]
+
+
+
+@admin.register(StockOut)
+class StockOutAdmin(admin.ModelAdmin):
+    list_display = [field.name for field in StockOut._meta.fields]
+
+
+
+@admin.register(Module6Stockretail)
+class Module6StockretailAdmin(admin.ModelAdmin):
+    list_display = [field.name for field in Module6Stockretail._meta.fields]
+
+

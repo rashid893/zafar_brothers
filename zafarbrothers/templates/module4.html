@@ -69,35 +69,38 @@
           
                
                     {% csrf_token %}
-          <div class="form-group">
-            <label for="client">Trader name:</label>
-            <select class="form-control" name="client">
-              <option selected disabled>Select</option>
 
-              <option>FFC</option>
-              <option>ENGRO</option>
-              <option>Fatima Group</option>
-              <option>NFC</option>
-            </select>
-          </div>
+
+                    <div class="form-group">
+                      <label for="client">Customer Acount Name:</label>
+                      <select class="form-control" name="client">
+                          <option selected disabled>Select</option>
+                          {% for trader in trade %}
+                              <option>{{ trader.trader }}</option>
+                          {% endfor %}
+                      </select>
+                  </div>
+                    
+       
+       
 
           <!-- Product Name -->
           <div class="mb-3">
-            <label for="product_name" class="form-label">Product Name:</label>
+            <label for="product_name" class="form-label">Product details:</label>
             <input type="text" class="form-control" id="product_name" name="product_name" placeholder="Enter product name">
         </div>
 
-        <!-- Stock In -->
         <div class="mb-3">
-            <label for="stock_in" class="form-label">Stock In:</label>
-            <input type="text" class="form-control" id="stock_in" name="stock_in" placeholder="Enter stock in">
-        </div>
+          <label for="number_of_bags" class="form-label">Number of Bags:</label>
+          <input type="text" class="form-control" id="number_of_bags" name="number_of_bags" placeholder="Enter number of bags">
+      </div>
 
-        <!-- Stock Out -->
+     
+        {% comment %} <!-- Stock Out -->
         <div class="mb-3">
             <label for="stock_out" class="form-label">Stock Out:</label>
             <input type="text" class="form-control" id="stock_out" name="stock_out" placeholder="Enter stock out">
-        </div>
+        </div> {% endcomment %}
 
         <!-- Per Bag Price -->
         <div class="mb-3">
@@ -107,41 +110,13 @@
 
         <!-- Total Tons -->
         <div class="mb-3">
-            <label for="total_tons" class="form-label">Total Tons:</label>
-            <input type="text" class="form-control" id="total_tons" name="total_tons" placeholder="Enter total tons">
+            <label for="total_tons" class="form-label">Description:</label>
+            <input type="text" class="form-control" id="description" name="description" placeholder="Enter Description">
         </div>
 
         <!-- Number of Bags -->
-        <div class="mb-3">
-            <label for="number_of_bags" class="form-label">Number of Bags:</label>
-            <input type="text" class="form-control" id="number_of_bags" name="number_of_bags" placeholder="Enter number of bags">
-        </div>
+       
 
-        <!-- Total Price -->
-        <div class="mb-3">
-            <label for="total_price" class="form-label">Total Price:</label>
-            <input type="text" class="form-control" id="total_price" name="total_price" placeholder="Enter total price">
-        </div>
-
-        <!-- Stock Out Price -->
-        <div class="mb-3">
-            <label for="stock_out_price" class="form-label">Stock Out Price:</label>
-            <input type="text" class="form-control" id="stock_out_price" name="stock_out_price" placeholder="Enter stock out price">
-        </div>
-
-        <!-- Remaining Stock Price -->
-        <div class="mb-3">
-            <label for="remaining_stock_price" class="form-label">Remaining Stock Price:</label>
-            <input type="text" class="form-control" id="remaining_stock_price" name="remaining_stock_price" placeholder="Enter remaining stock price">
-        </div>
-
-        <!-- Profit -->
-        <div class="mb-3">
-            <label for="profit" class="form-label">Profit:</label>
-            <input type="text" class="form-control" id="profit" name="profit" placeholder="Enter profit">
-        </div>
-
-         
         <button type="submit" class="btn btn-primary">Submit</button>
          <!-- Button trigger modal -->
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">

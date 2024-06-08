@@ -131,6 +131,12 @@ class Module3(models.Model):
     invoice_picture = models.ImageField(upload_to='media')
     freight_paid = models.DecimalField(max_digits=20, decimal_places=2, null=True)
     status = models.CharField(max_length=20)
+    remaining_bags = models.IntegerField(blank=True, null=True)
+    diversion_bags = models.IntegerField(blank=True, null=True)
+    
+    per_bag_price=models.CharField(max_length=122,blank=True, null=True)
+    Diversion_Party = models.CharField(max_length=50,blank=True, null=True)
+
 
 @receiver(pre_save, sender=Module3)
 def update_bilty_number(sender, instance, **kwargs):
@@ -148,18 +154,19 @@ def update_bilty_number(sender, instance, **kwargs):
         instance.system_generated_bilty_number = f"{instance.trader_name}{date_str}-{instance.serial_number}"
 
 class Module4(models.Model):
-    trader_name = models.CharField(max_length=255,null=True,blank=True)
-    product_name=models.CharField(max_length=255)
     stock_in=models.CharField(max_length=122)
-    stock_out=models.CharField(max_length=122)
+    customer_account_name = models.CharField(max_length=255,null=True,blank=True)
+    product_details=models.CharField(max_length=255)
     per_bag_price=models.CharField(max_length=122)
-    total_tons = models.DecimalField(max_digits=25, decimal_places=2)
-    number_of_bags = models.IntegerField()
-    total_price = models.DecimalField(max_digits=19, decimal_places=2)
-    stock_out_price=models.CharField(max_length=122)
-    remaining_stock_price=models.CharField(max_length=122)
-    profit=models.CharField(max_length=122)
+    description=models.CharField(max_length=1122)
+    date_time = models.DateTimeField(auto_now=True)
+    customer_order_number=models.CharField(max_length=1122)
+    total_amount=models.CharField(max_length=122)
+    credit=models.CharField(max_length=122)
+    debit=models.CharField(max_length=122)
+    amount=models.CharField(max_length=122)
 
+   
 
 
 
@@ -169,6 +176,34 @@ class Product(models.Model):
 
 class Trader(models.Model):
     trader = models.CharField(max_length=255)
+
+class StockInData(models.Model):
+    total_bags_in_Warehouse=models.IntegerField()
+
+
+class Module6Stockretail(models.Model):
+    product = models.CharField(max_length=255)
+    average_price_per_bag =  models.DecimalField(max_digits=120, decimal_places=3,null=True,blank=True)
+    date = models.DateTimeField(auto_now_add=True)
+
+
+
+
+class StockOut(models.Model):
+    stock_out = models.CharField(max_length=100)
+    date = models.DateTimeField(auto_now_add=True)
+    customer_account = models.CharField(max_length=100)
+    product = models.CharField(max_length=100)
+    description = models.CharField(max_length=300)
+    customer_order_number = models.CharField(max_length=50,null=True,blank=True)
+    stock_out_price_per_bag = models.DecimalField(max_digits=20, decimal_places=2)
+    stock_out_total_amount = models.DecimalField(max_digits=20, decimal_places=2)
+    profit_per_bag = models.DecimalField(max_digits=20, decimal_places=2,null=True,blank=True)
+    total_profit = models.DecimalField(max_digits=20, decimal_places=2,null=True,blank=True)
+    borrow = models.CharField(max_length=20,null=True,blank=True)
+
+
+
 
 
 

@@ -11,6 +11,10 @@ urlpatterns = [
     path("module2/",views.module2,name="module2"),
     path("module3/",views.module3,name="module3"),
     path("module4/",views.module4,name="module4"),
+    path("module6_stockout/",views.module6_stockout,name="module6_stockout"),
+    path("product_average/",views.product_average,name="product_average"),
+    
+
     path("views_data_module1/",views.views_data_module1,name="views_data_module1"),
     path("views_data_module2/",views.views_data_module2,name="views_data_module2"),
     path("views_data_module3/",views.views_data_module3,name="views_data_module3"),
