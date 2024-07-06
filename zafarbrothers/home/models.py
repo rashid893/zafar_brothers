@@ -161,10 +161,12 @@ class Module4(models.Model):
     description=models.CharField(max_length=1122)
     date_time = models.DateTimeField(auto_now=True)
     customer_order_number=models.CharField(max_length=1122)
-    total_amount=models.CharField(max_length=122)
+    again_customer_order_number=models.CharField(max_length=1122)
     credit=models.CharField(max_length=122)
     debit=models.CharField(max_length=122)
-    amount=models.CharField(max_length=122)
+    balance=models.CharField(max_length=122)
+
+    
 
    
 
@@ -200,8 +202,7 @@ class StockOut(models.Model):
     stock_out_total_amount = models.DecimalField(max_digits=20, decimal_places=2)
     profit_per_bag = models.DecimalField(max_digits=20, decimal_places=2,null=True,blank=True)
     total_profit = models.DecimalField(max_digits=20, decimal_places=2,null=True,blank=True)
-    borrow = models.CharField(max_length=20,null=True,blank=True)
-
+   
 
 
 

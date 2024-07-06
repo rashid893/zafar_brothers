@@ -503,47 +503,202 @@ def module3(request):
 
 
 #####################   MODULE 4  #############################
+from datetime import datetime
+from .models import Module4
+from datetime import datetime
+from .models import Module4
+
+
+
+# def generate_order_number_m4(customer_account_name):
+#     current_date = datetime.now().strftime('%Y%m%d')  # Use datetime.now() directly
+#     order_count = Module4.objects.count() + 1
+#     serial_number = f"{order_count:00d}"
+#     order_number = f"{customer_account_name}_{current_date}_{serial_number}"
+#     return order_number
+
+
+from datetime import datetime
+from .models import Module4
+from .models import Module4
+
+def generate_order_number_m4(customer_account_name):
+    # Count entries where customer_account_name is not None
+    customer_entries_count = Module4.objects.exclude(customer_account_name__isnull=True).count()
+
+    # Calculate the new order count based on customer entries count
+    order_count = customer_entries_count + 1
     
+    # Format serial number with leading zeros (if needed)
+    serial_number = f"{order_count}"  # No leading zeros
+    
+    # Construct the order number
+    order_number = f"{customer_account_name}_{serial_number}"
+    
+    return order_number
 
 
+   
+
+
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .models import Module4, Trader, StockInData
+#from .utils import generate_order_number  # Assuming you have this utility function
 
 def module4(request):
-    data = moduelproducts(request)
-    trade = modueltrade(request)
+    trade = Trader.objects.all()
+    
     if request.method == 'POST':
-        trader_name = request.POST.get('client')
-        product_name = request.POST.get('product_name')
         stock_in = request.POST.get('stock_in')
-        stock_out = request.POST.get('stock_out')
-        per_bag_price = request.POST.get('per_bag_price')
-        total_tons = request.POST.get('total_tons')
+        client = request.POST.get('client')
+        product_name = request.POST.get('product_name')
         number_of_bags = request.POST.get('number_of_bags')
-        total_price = request.POST.get('total_price')
-        stock_out_price = request.POST.get('stock_out_price')
-        remaining_stock_price = request.POST.get('remaining_stock_price')
-        profit = request.POST.get('profit')
+        per_bag_price = request.POST.get('per_bag_price')
+        description = request.POST.get('description')
+        credit = request.POST.get('credit')
+        debit = request.POST.get('debit')
 
-        # Create a Module4 object and save it to the database
-        module4_instance = Module4(
-            trader_name=trader_name,
-            product_name=product_name,
+        if not stock_in or not client or not product_name or not number_of_bags or not per_bag_price or not description or not credit or not debit:
+            messages.error(request, 'All fields are required.')
+            return redirect('module4')
+
+        try:
+            stock_in = int(stock_in)
+            number_of_bags = int(number_of_bags)
+            per_bag_price = float(per_bag_price)
+            credit = float(credit)
+            debit = float(debit)
+        except ValueError:
+            messages.error(request, 'Stock In, Number of Bags, Per Bag Price, Credit, and Debit must be numbers.')
+            return redirect('module4')
+
+        stock_in_data = StockInData.objects.first()
+        if stock_in_data:
+            if stock_in > stock_in_data.total_bags_in_Warehouse:
+                print("Stockout exceeds warehouse stock:", stock_in_data.total_bags_in_Warehouse)
+                messages.error(request, 'Stockout exceeds the total bags in warehouse.')
+                return redirect('module4')
+
+        # Update warehouse stock
+        stock_in_data.total_bags_in_Warehouse -= stock_in
+        stock_in_data.save()
+
+        balance = credit - debit
+
+        # Generate order number
+        order_number = generate_order_number_m4(client)
+
+        Module4.objects.create(
             stock_in=stock_in,
-            stock_out=stock_out,
+            customer_account_name=client,
+            product_details=product_name,
             per_bag_price=per_bag_price,
-            total_tons=total_tons,
-            number_of_bags=number_of_bags,
-            total_price=total_price,
-            stock_out_price=stock_out_price,
-            remaining_stock_price=remaining_stock_price,
-            profit=profit
+            description=description,
+            customer_order_number=order_number,
+            credit=credit,
+            debit=debit,
+            balance=balance,
         )
-        module4_instance.save()
 
-        # Redirect to a success page or another view
-        messages.success(request, 'Data added successfully')
-        return render(request, 'module4.html', {'data': data, 'trade': trade})  
+        messages.success(request, 'Data added successfully.')
+        return redirect('module4')
 
-    return render(request, 'module4.html', {'data': data, 'trade': trade})
+    return render(request, 'module4.html', {'trade': trade})
+
+def query_module4(request):
+    if request.method == 'POST':
+        data = request.POST['client']
+        model = Module4.objects.filter(customer_order_number=data)
+        return render(request, 'querym4.html', {'model': model})
+    return render(request, 'querym4.html')
+
+from datetime import datetime
+from django.shortcuts import render
+from django.contrib import messages
+from .models import Module4
+
+def entry_module4(request):
+    if request.method == 'POST':
+        customer_order_number = request.POST.get('client')
+        description = request.POST.get('description')
+        credit = float(request.POST.get('credit', 0))  # Convert to float, default to 0 if empty
+        debit = float(request.POST.get('debit', 0))    # Convert to float, default to 0 if empty
+
+        print("Customer Order Number:", customer_order_number)
+
+        # Get the latest balance for the given customer order number
+        latest_transaction = Module4.objects.filter(customer_order_number__startswith=customer_order_number).order_by('-date_time').first()
+
+        if latest_transaction:
+            previous_balance = float(latest_transaction.balance)  # Convert to float if it's a string
+            # Create new customer order number
+            if '_' in latest_transaction.again_customer_order_number:
+                base_order_number, latest_order_index = latest_transaction.again_customer_order_number.rsplit('_', 1)
+                new_order_index = int(latest_order_index) + 1
+                new_customer_order_number = f"{base_order_number}_{new_order_index}"
+            else:
+                new_customer_order_number = f"{customer_order_number}_1"
+        else:
+            previous_balance = 0
+            new_customer_order_number = customer_order_number
+
+        # Calculate new balance
+        new_balance = previous_balance + credit - debit
+
+        # Create new transaction
+        Module4.objects.create(
+            customer_order_number=customer_order_number,
+            again_customer_order_number=new_customer_order_number,
+            description=description,
+            credit=credit,
+            debit=debit,
+            balance=new_balance,
+            date_time=datetime.now()  # Ensure you have this field in your model
+        )
+        messages.success(request, 'Data Added Successfully')
+        return render(request, 'querym4.html')
+
+    return render(request, 'querym4.html')
+
+
+
+from datetime import datetime
+#####################################################################################################################
+# def generate_order_number(customer_account_name):
+#     # Get the current date in YYYYMMDD format
+#     current_date = datetime.datetime.now().strftime('%Y%m%d')
+
+#     # Count the total number of orders to generate a serial number
+#     order_count = StockOut.objects.count() + 1
+
+#     # Format the serial number to be three digits, e.g., 001, 002, etc.
+#     serial_number = f"{order_count:03d}"
+
+#     # Combine the customer account name, current date, and serial number
+#     order_number = f"{customer_account_name}_{current_date}_{serial_number}"
+
+#     return order_number
+
+def generate_order_number(customer_account_name):
+    current_date = datetime.now().strftime('%Y%m%d')  # Use datetime.now() directly
+    order_count = StockOut.objects.count() + 1
+    serial_number = f"{order_count:00d}"
+    order_number = f"{customer_account_name}_{current_date}_{serial_number}"
+    return order_number
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -561,9 +716,7 @@ def module6_stockout(request):
         product = request.POST.get('product')
         description = request.POST.get('description')
         per_bag_price = request.POST.get('per_bag_price')
-        borrow = request.POST.get('borrow')
-        print("Input borrow:", borrow)
-        
+         
         if stockout and client and product and per_bag_price:
             # Convert to appropriate data types
             try:
@@ -597,40 +750,26 @@ def module6_stockout(request):
                     product_average.average_price_per_bag = per_bag_price
                     product_average.save()
 
+                    order_number = generate_order_number(client)
+
                     # Create StockOut record
-                    if borrow == 'yes':
-                        StockOut.objects.create(
-                            stock_out=stockout,
-                            customer_account=client,
-                            product=product,
-                            description=description,
-                            stock_out_price_per_bag=per_bag_price,
-                            stock_out_total_amount=stock_out_total_amount,
-                            profit_per_bag=profit_per_bag,
-                            total_profit=total_profit,
-                            borrow=borrow,
-                        )
-                        messages.success(request, 'Stock out information saved successfully!')
-                         
-                        return render(request, 'module6_stockout.html', {'data': data, 'trade': trade})
-             
-                    else:
-                        print("this contition is excution borrow type no")
-                        Module4.objects.create(
-                            stock_in=stockout,
-                            customer_account_name=client,
-                            product_details=product,
-                            per_bag_price=per_bag_price,
-                            description=description,
-                           
-                            total_amount=stock_out_total_amount,
-                            
-                            amount=total_profit,
-                        )
-                        messages.success(request, ' information saved successfully in Module4!')
-                         
-                        return render(request, 'module6_stockout.html', {'data': data, 'trade': trade})
-             
+                    
+                    StockOut.objects.create(
+                        stock_out=stockout,
+                        customer_account=client,
+                        product=product,
+                        description=description,
+                        stock_out_price_per_bag=per_bag_price,
+                        customer_order_number=order_number,
+                        stock_out_total_amount=stock_out_total_amount,
+                        profit_per_bag=profit_per_bag,
+                        total_profit=total_profit,
+                       
+                    )
+                    messages.success(request, 'Stock out information saved successfully!')
+                        
+                    return render(request, 'module6_stockout.html', {'data': data, 'trade': trade})
+            
                     
                     # return render(request, 'module6_stockout.html', {'data': data, 'trade': trade})
                 else:
@@ -715,19 +854,19 @@ from django.utils import timezone
 from datetime import datetime
 from django.contrib import messages
 
-from .models import CompanyBooking, Deal, Module3, Module6Stockretail  # Import your models
+from .models import CompanyBooking, Deal, Module3, Module6Stockretail, Product  # Import your models
 
-def product_average(request):
-    data = moduelproducts(request)
-    trade = modueltrade(request)
-    
-    if request.method == "POST":
-        product_data = request.POST.get('product')
-        print("hereeeeeeeeeeeeeeeeee product",product_data)
-        
-        # Define the date range
-        start_date = timezone.make_aware(datetime(2024, 1, 1))
-        end_date = timezone.now()
+def product_average():
+    # Fetch all products
+    products = Product.objects.all()
+   
+
+    start_date = timezone.make_aware(datetime(2024, 1, 1))
+    end_date = timezone.now()
+    results = []
+
+    for product in products:
+        product_data = product.product_list_fertilizer
         
         # Filter and aggregate data for CompanyBooking
         company_booking_data = CompanyBooking.objects.filter(
@@ -783,15 +922,13 @@ def product_average(request):
         if not created:
             module6_stock.average_price_per_bag = average_price_per_bag
             module6_stock.save()
-        
-        result = {
+
+        results.append({
+            'product': product_data,
             'total_amount': total_amount,
             'total_bags': total_bags,
             'average_price_per_bag': average_price_per_bag
-        }
-        
-        messages.success(request, 'Data added successfully')
-        return render(request, 'module6stockR.html', {'data': data, 'trade': trade, 'result': result})
+        })
+    
 
-    return render(request, 'module6stockR.html', {'data': data, 'trade': trade})
-
+product_average()
