@@ -21,6 +21,8 @@ urlpatterns = [
     path("views_data_module2/",views.views_data_module2,name="views_data_module2"),
     path("views_data_module3/",views.views_data_module3,name="views_data_module3"),
     path("views_data_module4/",views.views_data_module4,name="views_data_module4"),
+    path("views_data_module6/",views.views_data_module6,name="views_data_module6"),
+
 
   #  path("module1products/",views.moduel1products,name="module1products"),
 

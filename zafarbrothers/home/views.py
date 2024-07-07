@@ -58,15 +58,33 @@ def views_data_module3(request):
 
 
 def views_data_module4(request):
+    #data = moduelproducts(request)
+    trade = modueltrade(request)
 
     if request.method=="POST":
        
        data=request.POST.get('client')
-       data=Module4.objects.filter(trader_name=data)
+       data=Module4.objects.filter(customer_account_name =data)
        print("here data ",data)
        return render(request,'view_entries4.html',{'data':data})
 
     return render(request,'view_entries4.html')
+
+
+
+def views_data_module6(request):
+    #data = moduelproducts(request)
+    trade = modueltrade(request)
+
+    if request.method=="POST":
+       
+       data=request.POST.get('client')
+       data=StockOut.objects.filter(customer_account=data)
+       print("here data ",data)
+       return render(request,'view_entries6.html',{'data':data})
+
+    return render(request,'view_entries6.html')
+
 
 
 
@@ -601,7 +619,7 @@ def module4(request):
             balance=balance,
         )
 
-        messages.success(request, 'Data added successfully.')
+        messages.success(request, 'Data added successfully.',{'trade': trade})
         return redirect('module4')
 
     return render(request, 'module4.html', {'trade': trade})

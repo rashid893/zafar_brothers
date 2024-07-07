@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StockOut List</title>
+    <!-- Add Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        th, td {
+            text-align: center;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container mt-5">
+    <h2>StockOut List</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Stock<br>Out</th>
+                <th scope="col">Date</th>
+                <th scope="col">Customer<br>Account</th>
+                <th scope="col">Product</th>
+                <th scope="col">Description</th>
+                <th scope="col">Customer Order<br>Number</th>
+                <th scope="col">Stock Out Price<br>Per Bag</th>
+                <th scope="col">Stock Out<br>Total Amount</th>
+                <th scope="col">Profit<br>Per Bag</th>
+                <th scope="col">Total<br>Profit</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for stockout in data %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ stockout.stock_out }}</td>
+                    <td>{{ stockout.date }}</td>
+                    <td>{{ stockout.customer_account }}</td>
+                    <td>{{ stockout.product }}</td>
+                    <td>{{ stockout.description }}</td>
+                    <td>{{ stockout.customer_order_number }}</td>
+                    <td>{{ stockout.stock_out_price_per_bag }}</td>
+                    <td>{{ stockout.stock_out_total_amount }}</td>
+                    <td>{{ stockout.profit_per_bag }}</td>
+                    <td>{{ stockout.total_profit }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Add Bootstrap JS and Popper.js -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

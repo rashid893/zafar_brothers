@@ -1,5 +1,3 @@
-<!-- Add this to your HTML file (e.g., module4_list.html) -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +6,12 @@
     <title>Module4 List</title>
     <!-- Add Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        th, td {
+            text-align: center;
+            vertical-align: middle;
+        }
+    </style>
 </head>
 <body>
 
@@ -17,34 +21,34 @@
         <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Trader Name</th>
-                <th scope="col">Product Name</th>
-                <th scope="col">Stock In</th>
-                <th scope="col">Stock Out</th>
-                <th scope="col">Per Bag Price</th>
-                <th scope="col">Total Tons</th>
-                <th scope="col">Number of Bags</th>
-                <th scope="col">Total Price</th>
-                <th scope="col">Stock Out Price</th>
-                <th scope="col">Remaining Stock Price</th>
-                <th scope="col">Profit</th>
+                <th scope="col">Stock<br>In</th>
+                <th scope="col">Customer<br>Account Name</th>
+                <th scope="col">Product<br>Details</th>
+                <th scope="col">Per Bag<br>Price</th>
+                <th scope="col">Description</th>
+                <th scope="col">Date<br>Time</th>
+                <th scope="col">Customer Order<br>Number</th>
+                <th scope="col">Again Customer<br>Order Number</th>
+                <th scope="col">Credit</th>
+                <th scope="col">Debit</th>
+                <th scope="col">Balance</th>
             </tr>
         </thead>
         <tbody>
             {% for module4 in data %}
                 <tr>
                     <th scope="row">{{ forloop.counter }}</th>
-                    <td>{{ module4.trader_name }}</td>
-                    <td>{{ module4.product_name }}</td>
                     <td>{{ module4.stock_in }}</td>
-                    <td>{{ module4.stock_out }}</td>
+                    <td>{{ module4.customer_account_name }}</td>
+                    <td>{{ module4.product_details }}</td>
                     <td>{{ module4.per_bag_price }}</td>
-                    <td>{{ module4.total_tons }}</td>
-                    <td>{{ module4.number_of_bags }}</td>
-                    <td>{{ module4.total_price }}</td>
-                    <td>{{ module4.stock_out_price }}</td>
-                    <td>{{ module4.remaining_stock_price }}</td>
-                    <td>{{ module4.profit }}</td>
+                    <td>{{ module4.description }}</td>
+                    <td>{{ module4.date_time }}</td>
+                    <td>{{ module4.customer_order_number }}</td>
+                    <td>{{ module4.again_customer_order_number }}</td>
+                    <td>{{ module4.credit }}</td>
+                    <td>{{ module4.debit }}</td>
+                    <td>{{ module4.balance }}</td>
                 </tr>
             {% endfor %}
         </tbody>

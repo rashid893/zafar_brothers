@@ -94,7 +94,7 @@
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                     <!-- Button trigger modal for Views Data -->
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         Views Data
                     </button>
                     <!-- Button trigger modal for Query -->
@@ -114,15 +114,15 @@
                                 <form action="/views_data_module4/" method="post">
                                     {% csrf_token %}
                                     <div class="form-group">
-                                        <label for="client">Trader name:</label>
+                                        <label for="client">Trader's from purchase:</label>
                                         <select class="form-control" name="client">
                                             <option selected disabled>Select</option>
-                                            <option>FFC</option>
-                                            <option>ENGRO</option>
-                                            <option>Fatima Group</option>
-                                            <option>NFC</option>
+                                            {% for trader in trade %}
+                                                <option>{{ trader.trader }}</option>
+                                            {% endfor %}
                                         </select>
                                     </div>
+                                    
                                     <br>
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                 </form>

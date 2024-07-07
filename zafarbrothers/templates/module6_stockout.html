@@ -118,7 +118,43 @@
          
         <button type="submit" class="btn btn-primary">Submit</button>
 
+          <!-- Button trigger modal for Views Data -->
+          <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Views Data
+        </button>
+
     </form>
+
+
+    <!-- Modal for Views Data -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Views Data</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  <form action="/views_data_module6/" method="post">
+                      {% csrf_token %}
+                      <div class="form-group">
+                          <label for="client">Trader's from purchase:</label>
+                          <select class="form-control" name="client">
+                              <option selected disabled>Select</option>
+                              {% for trader in trade %}
+                                  <option>{{ trader.trader }}</option>
+                              {% endfor %}
+                          </select>
+                      </div>
+                      
+                      <br>
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                  </form>
+              </div>
+              <div class="modal-footer"></div>
+          </div>
+      </div>
+  </div>
 
  
 
