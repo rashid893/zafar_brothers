@@ -535,9 +535,7 @@ from .models import Module4
 #     order_number = f"{customer_account_name}_{current_date}_{serial_number}"
 #     return order_number
 
-
 from datetime import datetime
-from .models import Module4
 from .models import Module4
 
 def generate_order_number_m4(customer_account_name):
@@ -545,15 +543,17 @@ def generate_order_number_m4(customer_account_name):
     customer_entries_count = Module4.objects.exclude(customer_account_name__isnull=True).count()
 
     # Calculate the new order count based on customer entries count
+    current_date = datetime.now().strftime('%Y%m%d')
     order_count = customer_entries_count + 1
     
-    # Format serial number with leading zeros (if needed)
+    # Format serial number
     serial_number = f"{order_count}"  # No leading zeros
     
     # Construct the order number
-    order_number = f"{customer_account_name}_{serial_number}"
+    order_number = f"{customer_account_name}_{current_date}_{serial_number}"
     
     return order_number
+
 
 
    
