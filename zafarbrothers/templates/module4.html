@@ -113,15 +113,12 @@
                             <div class="modal-body">
                                 <form action="/views_data_module4/" method="post">
                                     {% csrf_token %}
-                                    <div class="form-group">
-                                        <label for="client">Trader's from purchase:</label>
-                                        <select class="form-control" name="client">
-                                            <option selected disabled>Select</option>
-                                            {% for trader in trade %}
-                                                <option>{{ trader.trader }}</option>
-                                            {% endfor %}
-                                        </select>
+
+                                    <div class="mb-3">
+                                        <label for="con" class="form-label">CO  Number:</label>
+                                        <input type="text" class="form-control" id="debit" name="client" placeholder="Enter debit amount">
                                     </div>
+                                   
                                     
                                     <br>
                                     <button type="submit" class="btn btn-primary">Submit</button>

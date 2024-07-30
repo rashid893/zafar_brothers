@@ -64,7 +64,7 @@ def views_data_module4(request):
     if request.method=="POST":
        
        data=request.POST.get('client')
-       data=Module4.objects.filter(customer_account_name =data)
+       data=Module4.objects.filter( customer_order_number =data)
        print("here data ",data)
        return render(request,'view_entries4.html',{'data':data})
 
