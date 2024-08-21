@@ -149,26 +149,18 @@
         </select>
       </div>
 
-      <div class="mb-3">
-        <label for="tons" class="form-label">Tons</label>
-        <input type="number" class="form-control" id="tons" name="tons">
-    </div>
+     
 
     <div class="mb-3">
       <label for="ordered_total_bags" class="form-label">Ordered Total Bags</label>
       <input type="number" class="form-control" id="ordered_total_bags" name="ordered_total_bags" required>
   </div>
 
-        <div class="mb-3">
-            <label for="products_bank_payment_slip_number" class="form-label"> Pending Ordered bags at Traders area </label>
-            <input type="text" class="form-control" id="pending_at_company" name="pending_at_company">
-        </div>
-
-        <div class="mb-3">
-          <label for="ordered_total_bags" class="form-label">Delivered ( The Numbers bags delivered ) 
-          </label>
-          <input type="number" class="form-control" id="Delivered" name="delivered" required>
-      </div>
+  <div class="mb-3">
+    <label for="total_dispatch" class="form-label"> Total Dispatch</label>
+    <input type="text" class="form-control" id="total_dispatch" name="total_dispatch">
+</div>
+        
 
       <div class="form-group">
         <label for="dispatchedStatus">Dispatched Status:</label>
@@ -248,11 +240,29 @@
             <label for="name_of_the_bank" class="form-label">Name of the Bank</label>
             <input type="text" class="form-control" id="name_of_the_bank" name="name_of_the_bank"required>
         </div>
-
-        <div class="mb-3">
-            <label for="zafar_and_brothers_bank_account_number" class="form-label">Zafar and Brothers Bank Account Number</label>
-            <input type="text" class="form-control" id="zafar_and_brothers_bank_account_number" name="zafar_and_brothers_bank_account_number" required>
-        </div>
+        <div class="form-group">
+          <label for="account">Zafar_and_brothers_bank_account_number</label>
+          <select class="form-control" name="zafar_and_brothers_bank_account_number">
+              <option selected disabled>Select</option>
+              <option>ABDUL HAQ - BANK AL HABIB (02290981000001012)</option>
+              <option>ZAFAR ALI - BANK AL HABIB (02290981000010013)</option>
+              <option>ZEESHAN ALI - BANK AL HABIB (02290095000555018)</option>
+              <option>ZEESHAN ALI - BANK AL FALAH (0166001007925153)</option>
+              <option>HAQ BROTHER'S AGRO TRADERS - BANK AL FALAH (0166001008530185)</option>
+              <option>ZEESHAN ZAFAR AND CO - BANK AL FALAH (0166001007124629)</option>
+              <option>ZAFAR BROTHER'S - BANK AL FALAH (0166001007686710)</option>
+              <option>HAQ BROTHER'S - BANK AL FALAH (0166001008874423)</option>
+              <option>ZAFAR ALI - BANK AL HABIB LIMIT AC (02290812000010019)</option>
+              <option>ZAFAR AND BROTHER'S - UBL BANK (1650216384855)</option>
+              <option>ZAFAR BROTHER'S - MEEZAN BANK (98620108270550)</option>
+              <option>ZAFAR BROTHER'S - MCB BANK (0500=61-5)</option>
+              <option>HAQ BROTHER'S AGRO TRADERS - BANK AL HABIB (02290981001948018)</option>
+              <option>HAQ BROTHER'S - BANK AL HABIB (02290981001000013)</option>
+              <option>ZAFAR BROTHER'S - BANK AL HABIB (02290981001001014)</option>
+              <option>ZEESHAN ZAFAR AND CO - BANK AL HABIB (02290981001002015)</option>
+              <option>ZEESHAN ALI - BANK AL HABIB MURADAABAD BRANCH (03140981001599016)</option>
+          </select>
+      </div>
 
         <div class="mb-3">
             <label for="target_bank_account" class="form-label">Target Bank Account</label>
@@ -334,52 +344,207 @@
         
 
         <button type="submit" class="btn btn-primary">Submit</button>
-          <!-- Button trigger modal -->
+         <!-- Button trigger modal -->
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-  Views Data
+  View Data
 </button>
-    </form>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#totalBookingModal">
+  View Total Booking Report
+</button>
+
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#companyBookingsModal">
+  View Company Bookings Report
+</button>
+
+</form>
+<!-- Modal Trigger Button -->
 
 
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<!-- Modal -->
+<div class="modal fade" id="companyBookingsModal" tabindex="-1" aria-labelledby="companyBookingsModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="companyBookingsModalLabel">Company Bookings Report</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="{% url 'module3_company_bookings_report' %}" method="post">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="client">Trader's from purchase:</label>
+            <select class="form-control" name="client">
+                <option selected disabled>Select</option>
+                {% for trader in trade %}
+                    <option>{{ trader.trader }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        
+          <div class="mb-3">
+            <label for="start_date" class="form-label">Start Date</label>
+            <input type="date" class="form-control" id="start_date" name="start_date" required>
           </div>
-          <div class="modal-body">
-            <form action="/views_data_module3/" method="post">
-              {% csrf_token %}
-              <div class="form-group">
-                <label for="client">Company Bookings:</label>
-                <select class="form-control" name="client">
+          <div class="mb-3">
+            <label for="end_date" class="form-label">End Date</label>
+            <input type="date" class="form-control" id="end_date" name="end_date" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Generate Report</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal Trigger Button -->
+
+<!-- Modal -->
+<div class="modal fade" id="totalBookingModal" tabindex="-1" aria-labelledby="totalBookingModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="totalBookingModalLabel">Total Booking Report</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="{% url 'module3_total_booking_report' %}" method="post">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="client">Trader's from purchase:</label>
+            <select class="form-control" name="client">
+                <option selected disabled>Select</option>
+                {% for trader in trade %}
+                    <option>{{ trader.trader }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        
+          <div class="mb-3">
+            <label for="start_date" class="form-label">Start Date</label>
+            <input type="date" class="form-control" id="start_date" name="start_date" required>
+          </div>
+          <div class="mb-3">
+            <label for="end_date" class="form-label">End Date</label>
+            <input type="date" class="form-control" id="end_date" name="end_date" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Generate Report</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+           </div>
+    </div>
+  </div><!-- Modal Trigger Button -->
+ 
+  <!-- Modal -->
+  <div class="modal fade" id="totalBookingModal" tabindex="-1" aria-labelledby="totalBookingModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="totalBookingModalLabel">Total Booking Report</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="{% url 'module3_total_booking_report' %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="client">Trader's from purchase:</label>
+              <select class="form-control" name="client">
                   <option selected disabled>Select</option>
-    
-                  <option>FFC</option>
-                  <option>ENGRO</option>
-                  <option>Fatima Group</option>
-                  <option>NFC</option>
-                </select>
-              </div>
-              <br>
-              <button type="submit" class="btn btn-primary">Submit</button>
-    
-            </form>
-    
-            
+                  {% for trader in trade %}
+                      <option>{{ trader.trader }}</option>
+                  {% endfor %}
+              </select>
           </div>
-          <div class="modal-footer">
-            
-            
-          </div>
+          
+            <div class="mb-3">
+              <label for="start_date" class="form-label">Start Date</label>
+              <input type="date" class="form-control" id="start_date" name="start_date" required>
+            </div>
+            <div class="mb-3">
+              <label for="end_date" class="form-label">End Date</label>
+              <input type="date" class="form-control" id="end_date" name="end_date" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Generate Report</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          
         </div>
       </div>
     </div>
+  </div>
+  
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Query by Order Number or Company</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/views_data_module3/" method="post">
+          {% csrf_token %}
+
+          <!-- Hidden input to store the selected query type -->
+          <input type="hidden" name="query_type" id="query_type_input">
+
+          <!-- Selection dropdown to choose between Company or Order Number -->
+          <div class="form-group">
+            <label for="query_type">Select Query Type:</label>
+            <select class="form-control" id="query_type" onchange="toggleFields()">
+              <option value="" selected disabled>Select Option</option>
+              <option value="company">Company Bookings</option>
+              <option value="order_number">Order Number</option>
+            </select>
+          </div>
+          <br>
+
+          <!-- Company selection field, initially hidden -->
+          <div class="form-group" id="company_field" style="display: none;">
+            <label for="client">Trader's from purchase:</label>
+            <select class="form-control" name="client">
+                <option selected disabled>Select</option>
+                {% for trader in trade %}
+                    <option>{{ trader.trader }}</option>
+                {% endfor %}
+            </select>
+          </div>
+          <br>
+
+          <!-- Order Number input field, initially hidden -->
+          <div class="form-group" id="order_number_field" style="display: none;">
+            <label for="order_number">Order Number:</label>
+            <input type="text" class="form-control" name="order_number" id="order_number" placeholder="Enter Order Number">
+          </div>
+          <br>
+
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <!-- Optional footer content -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function toggleFields() {
+    var queryType = document.getElementById("query_type").value;
     
+    // Update the hidden input with the selected query type
+    document.getElementById("query_type_input").value = queryType;
 
-
-
+    // Show or hide fields based on the selected option
+    document.getElementById("company_field").style.display = queryType === "company" ? "block" : "none";
+    document.getElementById("order_number_field").style.display = queryType === "order_number" ? "block" : "none";
+  }
+</script>
 
 
 

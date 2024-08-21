@@ -24,6 +24,18 @@ urlpatterns = [
     path("views_data_module6/",views.views_data_module6,name="views_data_module6"),
 
 
+    path('company-bookings/', views.company_bookings_report, name='company_bookings_report'),
+    path('total-bookings/', views.total_booking_report, name='total_booking_report'),
+
+    path('module2_company-bookings/', views.module2_company_bookings_report, name='module2_company_bookings_report'),
+    path('module2_total-bookings/', views.module2_total_booking_report, name='module2_total_booking_report'),
+
+    
+    path('module3_company-bookings/', views.module3_company_bookings_report, name='module3_company_bookings_report'),
+    path('module3_total-bookings/', views.module3_total_booking_report, name='module3_total_booking_report'),
+
+
+
   #  path("module1products/",views.moduel1products,name="module1products"),
 
 

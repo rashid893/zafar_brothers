@@ -35,7 +35,7 @@
                 <th scope="col">Tons</th>
                 <th scope="col">Ordered Total Bags</th>
                 <th scope="col">Pending Ordered Bags at Trader's Area</th>
-                <th scope="col">Delivered Bags</th>
+                <th scope="col">total_dispatch</th>
                 <th scope="col">Dispatched</th>
                 <th scope="col">Product</th>
                 <th scope="col">Bank Payment Slip Number</th>
@@ -51,6 +51,10 @@
                 <th scope="col">Invoice Picture</th>
                 <th scope="col">Freight Paid</th>
                 <th scope="col">Status</th>
+                <th scope="col">Remaining Bags</th>
+                <th scope="col">Diversion Bage</th>
+                <th scope="col">Per Bag Price</th>
+                <th scope="col">Diversion Party</th>
             </tr>
         </thead>
         <tbody>
@@ -75,7 +79,7 @@
                     <td>{{ deal.tons }}</td>
                     <td>{{ deal.ordered_total_bags }}</td>
                     <td>{{ deal.pending_ordered_bags_at_traders_area }}</td>
-                    <td>{{ deal.delivered_bags }}</td>
+                    <td>{{ deal.total_dispatch }}</td>
                     <td>{{ deal.dispatched }}</td>
                     <td>{{ deal.product }}</td>
                     <td>{{ deal.bank_payment_slip_number.url }}</td>  <!-- Assuming you want to display the URL of the file -->
@@ -91,6 +95,11 @@
                     <td>{{ deal.invoice_picture.url }}</td>  <!-- Assuming you want to display the URL of the image -->
                     <td>{{ deal.freight_paid }}</td>
                     <td>{{ deal.status }}</td>
+                    <td>{{ deal.remaining_bags}}</td>
+                    <td>{{ deal.diversion_bags }}</td>
+                    <td>{{ deal.per_bag_price }}</td>
+                    <td>{{ deal.Diversion_Party }}</td>
+               
                 </tr>
             {% endfor %}
         </tbody>

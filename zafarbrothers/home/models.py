@@ -9,12 +9,14 @@ class CompanyBooking(models.Model):
     customer_order_number = models.CharField(max_length=50)
     builty_number = models.CharField(max_length=50)
     date = models.DateTimeField(auto_now=True)
+  
     booking_price = models.DecimalField(max_digits=19, decimal_places=2)
     vehicle_number = models.CharField(max_length=20)
     drivers_name = models.CharField(max_length=100)
     drivers_id = models.CharField(max_length=50)
     drivers_mobile = models.CharField(max_length=15)
     pending_at_company = models.CharField(max_length=15)
+    total_dispatch=models.CharField(max_length=115)
     product = models.CharField(max_length=255)
     bank_payment_slip_number = models.CharField(max_length=50, blank=True, null=True)
     payment_amount = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
@@ -55,7 +57,8 @@ class Deal(models.Model):
     tons = models.DecimalField(max_digits=25, decimal_places=2)
     ordered_bags = models.IntegerField()
     pending_ordered_bags = models.IntegerField()
-    delivered_bags = models.IntegerField(blank=True, null=True)
+    total_dispatch=models.CharField(max_length=115)
+   
     dispatched = models.CharField(max_length=255)
     product = models.CharField(max_length=255)
     bank_payment_slip_number = models.FileField(upload_to='media')
@@ -71,7 +74,7 @@ class Deal(models.Model):
     invoice_picture = models.ImageField(upload_to='media')
     freight_paid = models.DecimalField(max_digits=20, decimal_places=2, null=True)
     status = models.CharField(max_length=20)
-    ordered_bags = models.IntegerField()
+    
     remaining_bags = models.IntegerField(blank=True, null=True)
     diversion_bags = models.IntegerField(blank=True, null=True)
     
@@ -115,7 +118,8 @@ class Module3(models.Model):
     tons = models.DecimalField(max_digits=25, decimal_places=2)
     ordered_total_bags = models.IntegerField()
     pending_ordered_bags_at_traders_area = models.IntegerField()
-    delivered_bags = models.IntegerField(blank=True, null=True)
+    total_dispatch=models.CharField(max_length=115)
+    
     dispatched = models.CharField(max_length=255)
     product = models.CharField(max_length=255)
     bank_payment_slip_number = models.FileField(upload_to='media')
@@ -181,6 +185,7 @@ class Trader(models.Model):
 
 class StockInData(models.Model):
     total_bags_in_Warehouse=models.IntegerField()
+    product = models.CharField(max_length=255)
 
 
 class Module6Stockretail(models.Model):
